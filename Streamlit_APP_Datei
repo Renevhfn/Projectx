@@ -1,0 +1,38 @@
+import streamlit as st
+import matplotlib.pyplot as plt
+
+# Beispiel Conversion-Raten
+rate_A = 0.12  # Conversion-Rate von Variante A
+rate_B = 0.15  # Conversion-Rate von Variante B
+
+# Titel und Einführung
+st.title("Conversion Rate Vergleich")
+st.write("Vergleiche die Conversion-Raten von zwei Varianten in einem A/B-Test.")
+
+# Eingabefelder für die Conversion-Raten
+rate_A_input = st.number_input("Conversion Rate Variante A", min_value=0.0, max_value=1.0, value=rate_A, step=0.01)
+rate_B_input = st.number_input("Conversion Rate Variante B", min_value=0.0, max_value=1.0, value=rate_B, step=0.01)
+
+# Berechnung des Unterschieds
+difference = rate_B_input - rate_A_input
+st.write(f"Der Unterschied zwischen den Conversion-Raten beträgt: {difference:.2%}")
+
+# Visualisierung der Conversion-Raten
+fig, ax = plt.subplots()
+
+# Balkendiagramm
+ax.bar(['Variante A', 'Variante B'], [rate_A_input, rate_B_input], color=['blue', 'green'])
+ax.set_ylim(0, 1)  # Setzt den Bereich der Y-Achse
+ax.set_ylabel('Conversion Rate')
+ax.set_title('Vergleich der Conversion-Raten')
+
+# Anzeige des Diagramms
+st.pyplot(fig)
+
+# Zusätzliche Information basierend auf dem Unterschied
+if difference > 0:
+    st.success(f"Variante B hat eine höhere Conversion-Rate um {difference:.2%}.")
+elif difference < 0:
+    st.warning(f"Variante A hat eine höhere Conversion-Rate um {-difference:.2%}.")
+else:
+    st.info("Beide Varianten haben die gleiche Conversion-Rate.")
