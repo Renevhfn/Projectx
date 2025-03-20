@@ -28,3 +28,20 @@ st.pyplot(fig)
 
 # Hinweis
 st.info("🔍 Gib zwei Conversion Rates ein, um die Veränderung zu sehen.")
+import plotly.graph_objects as go
+
+# Plotly-Diagramm für interaktive Darstellung
+fig = go.Figure(data=[
+    go.Bar(name='Conversion A', x=["Conversion A"], y=[rate_A], marker_color='#1f77b4'),
+    go.Bar(name='Conversion B', x=["Conversion B"], y=[rate_B], marker_color='#2ca02c')
+])
+
+fig.update_layout(
+    title='Vergleich der Conversion Rates',
+    xaxis_title='Conversion',
+    yaxis_title='Rate (%)',
+    barmode='group',
+    template='plotly_dark'  # Optional: Dunkles Thema
+)
+
+st.plotly_chart(fig)
